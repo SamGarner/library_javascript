@@ -1,4 +1,5 @@
 const bookList = document.querySelector('.booklist');
+const newBookButton = document.querySelector('.buttons');
 let myLibrary = [];
 
 function Book(title, author, pages, read) {
@@ -16,11 +17,12 @@ let addBookToLibrary = () => {
   let read = prompt('Have you read it? y/n:', 'y')
   myLibrary.push(new Book(title, author, pages, read));
   alert('Book added!');
+  displayLibrary(myLibrary.slice(myLibrary.length -1));
 }
 
 const displayLibrary = (library) => {
   library.forEach(book => {
-    nextBook = document.createElement('LI');
+    nextBook = document.createElement('LI'); //type of element
     nextBook.innerHTML = book.info();
     //bookList.appendChild(document.createElement('LI')); //type of element
     bookList.appendChild(nextBook);
@@ -45,6 +47,7 @@ Book.prototype.getReadStatus = function() {
   }
 };
 
+newBookButton.addEventListener('click', addBookToLibrary);
 myLibrary.push(new Book('HP: Deathly Hallows', 'JK', 760, 'y'));
 myLibrary.push(new Book('A Season with Verona', 'Guy', 303, 'y'));
 myLibrary.push(new Book('The Hobbit', 'Tolkien', 403, 'no'));
