@@ -1,3 +1,4 @@
+const bookList = document.querySelector('.booklist');
 let myLibrary = [];
 
 function Book(title, author, pages, read) {
@@ -14,14 +15,25 @@ let addBookToLibrary = () => {
   let pages = prompt('How many pages?');
   let read = prompt('Have you read it? y/n:', 'y')
   myLibrary.push(new Book(title, author, pages, read));
-  console.log('Book added!')
+  alert('Book added!');
 }
+
+const displayLibrary = (library) => {
+  library.forEach(book => {
+    nextBook = document.createElement('LI');
+    nextBook.innerHTML = book.info();
+    //bookList.appendChild(document.createElement('LI')); //type of element
+    bookList.appendChild(nextBook);
+    }
+  ); //temp
+} 
 
 Book.prototype.info = function() {
   status = this.getReadStatus();
   console.log(this.title);
-  console.log(`${this.title} by ${this.author}, ${this.pages} pages. ${status} `);
-  alert(`${this.title} by ${this.author}, ${this.pages} pages. ${status} `); // temp
+  // console.log(`${this.title} by ${this.author}, ${this.pages} pages. ${status} `);
+  // alert(`${this.title} by ${this.author}, ${this.pages} pages. ${status} `); // temp
+  return `${this.title} by ${this.author}, ${this.pages} pages. ${status}`;
 };
 
 Book.prototype.getReadStatus = function() {
@@ -33,5 +45,9 @@ Book.prototype.getReadStatus = function() {
   }
 };
 
-addBookToLibrary();
-myLibrary[myLibrary.length -1].info();
+myLibrary.push(new Book('HP: Deathly Hallows', 'JK', 760, 'y'));
+myLibrary.push(new Book('A Season with Verona', 'Guy', 303, 'y'));
+myLibrary.push(new Book('The Hobbit', 'Tolkien', 403, 'no'));
+// addBookToLibrary();
+// myLibrary[myLibrary.length -1].info();
+displayLibrary(myLibrary);
