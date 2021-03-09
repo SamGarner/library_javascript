@@ -14,7 +14,7 @@ function Book(title, author, pages, read) {
 //   this.read = newStatus;
 // }
 
-Book.prototype.toggleReadStatus = function() {
+Book.prototype.toggleRead = function() {
   return this.read = (this.read === 'Has been read.' ? 'Has not yet been read.' : 'Has been read.'); //need this.read ===
   // if (read === 'Has been read.') { //can't have this...
   //   return this.read = 'Has not yet been read.'
@@ -22,6 +22,20 @@ Book.prototype.toggleReadStatus = function() {
   // else {
   //   return this.read = 'Has been read.'
   // }
+}
+
+function toggleReadStatus() {  // can be arrow function?
+  book = myLibrary[event.target.dataset.index];
+  book.toggleRead();
+  // displayLibrary(myLibrary); //test
+  // remove from Lib array
+  // myLibrary.splice(indexToDelete, 1)
+  // // remove node and corresponding delete button
+  // let oldButton = document.querySelector(`[data-index="${indexToDelete}"]`);  //need the quotes around the index value!
+  // let oldBook = document.querySelectorAll('li')[indexToDelete]
+  // oldButton.remove();
+  // oldBook.remove();
+  // refreshButtonIndices();
 }
 
 // take user's input and add the new book to the myLibrary array
@@ -36,6 +50,7 @@ let addBookToLibrary = () => {
 }
 
 const displayLibrary = (library) => {
+  // clearLibrary();
   library.forEach((book, index) => {
     nextBook = document.createElement('LI'); //type of element
     nextBook.innerHTML = book.info(); //works in backticks
@@ -46,14 +61,30 @@ const displayLibrary = (library) => {
     deleteButton.className = 'delete-button';
     deleteButton.dataset.index = index;
     bookList.appendChild(deleteButton);
+    toggleButton = document.createElement('button');
+    toggleButton.innerHTML = 'Change read status';
+    toggleButton.className = 'toggle-button';
+    toggleButton.dataset.index = index;
+    bookList.appendChild(toggleButton);
     }
   ); //temp
   addDeleteButtonEvents();
-} 
+  addToggleButtonEvents();
+}
+
+// const clearLibrary = () => {
+//   libraryList = document.querySelectorAll('.booklist > *')
+//   libraryList.forEach(element => element.remove());
+// } 
 
 const addDeleteButtonEvents = () => {
   deleteButtons = document.querySelectorAll('.delete-button');
   deleteButtons.forEach(button => button.addEventListener('click', deleteBook));
+}
+
+const addToggleButtonEvents = () => {
+  toggleButtons = document.querySelectorAll('.toggle-button');
+  toggleButtons.forEach(button => button.addEventListener('click', toggleReadStatus));
 }
 
 function deleteBook() {  // can be arrow function?
@@ -87,7 +118,7 @@ Book.prototype.getReadStatus = function() {
   if (['yes', 'y', 'read', 'si'].includes(this.read.toLowerCase())) {
     // this.read = 'Has been read.'
     // return 'Has been read.';
-    return this.read = 'Has been read';
+    return this.read = 'Has been read.';
   }
   else {
     return this.read = 'Has not yet been read.';
