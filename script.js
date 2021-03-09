@@ -9,6 +9,21 @@ function Book(title, author, pages, read) {
   this.read = read;
 };
 
+// Book.prototype.toggleReadStatus = () => {
+//   newStatus = (read === 'Has been read.' ? 'Has not yet been read.' : 'Has been read.');
+//   this.read = newStatus;
+// }
+
+Book.prototype.toggleReadStatus = function() {
+  return this.read = (this.read === 'Has been read.' ? 'Has not yet been read.' : 'Has been read.'); //need this.read ===
+  // if (read === 'Has been read.') { //can't have this...
+  //   return this.read = 'Has not yet been read.'
+  // }
+  // else {
+  //   return this.read = 'Has been read.'
+  // }
+}
+
 // take user's input and add the new book to the myLibrary array
 let addBookToLibrary = () => {
   let title = prompt('What is the name of the book?', 'Moby Dick');
@@ -70,10 +85,12 @@ Book.prototype.info = function() {
 
 Book.prototype.getReadStatus = function() {
   if (['yes', 'y', 'read', 'si'].includes(this.read.toLowerCase())) {
-    return 'Has been read.';
+    // this.read = 'Has been read.'
+    // return 'Has been read.';
+    return this.read = 'Has been read';
   }
   else {
-    return 'Has not yet been read.';
+    return this.read = 'Has not yet been read.';
   }
 };
 
