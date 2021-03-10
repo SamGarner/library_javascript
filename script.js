@@ -27,7 +27,8 @@ Book.prototype.toggleRead = function() {
 function toggleReadStatus() {  // can be arrow function?
   book = myLibrary[event.target.dataset.index];
   book.toggleRead();
-  // displayLibrary(myLibrary); //test
+  clearLibrary();
+  displayLibrary(myLibrary); //test
   // remove from Lib array
   // myLibrary.splice(indexToDelete, 1)
   // // remove node and corresponding delete button
@@ -72,10 +73,10 @@ const displayLibrary = (library) => {
   addToggleButtonEvents();
 }
 
-// const clearLibrary = () => {
-//   libraryList = document.querySelectorAll('.booklist > *')
-//   libraryList.forEach(element => element.remove());
-// } 
+const clearLibrary = () => {
+  libraryList = document.querySelectorAll('.booklist > *')
+  libraryList.forEach(element => element.remove());
+} 
 
 const addDeleteButtonEvents = () => {
   deleteButtons = document.querySelectorAll('.delete-button');
@@ -115,7 +116,7 @@ Book.prototype.info = function() {
 };
 
 Book.prototype.getReadStatus = function() {
-  if (['yes', 'y', 'read', 'si'].includes(this.read.toLowerCase())) {
+  if (['yes', 'y', 'read', 'si', 'has been read.'].includes(this.read.toLowerCase())) {
     // this.read = 'Has been read.'
     // return 'Has been read.';
     return this.read = 'Has been read.';
